@@ -57,7 +57,11 @@ public class MReName {
                 default:
                     break;
             }
-            func(file, input, args1, args2);
+            try {
+                func(file, input, args1, args2);
+            } catch (Exception e) {
+                System.out.println("瞎基尔搞！" + e.getMessage());
+            }
         }
     }
 
@@ -67,7 +71,7 @@ public class MReName {
      * @param args1 第一个参数
      * @param args2 第二个参数
      */
-    private static void func(File file, String order, String args1, String args2) {
+    private static void func(File file, String order, String args1, String args2) throws Exception {
         File[] fs = file.listFiles();
         for (File f : fs) {
             if (f.isDirectory())    //若是目录，则递归打印该目录下的文件
@@ -91,7 +95,7 @@ public class MReName {
      * @param args2   第二个参数
      * @return 返回新的文件名
      */
-    public static String reName(String oldName, String order, String args1, String args2) {
+    public static String reName(String oldName, String order, String args1, String args2) throws Exception {
         String temp;
         switch (order) {
             //1.批量删除");
@@ -105,7 +109,7 @@ public class MReName {
                 break;
             //3.删除指定字节前的文字（并删除该字节）"
             case "3":
-                oldName = oldName.substring( oldName.indexOf(args1) +1,oldName.length());
+                oldName = oldName.substring(oldName.indexOf(args1) + 1, oldName.length());
                 break;
             //4.在指定位置处插入内容"
             case "4":

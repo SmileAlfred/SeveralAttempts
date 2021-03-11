@@ -1,12 +1,13 @@
 package com.company;
 
-import java.io.*;
-import java.net.ServerSocket;
-import java.net.Socket;
+import org.junit.Test;
+
+import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class test3 {
     public static int[][] array = new int[][]{
@@ -19,6 +20,26 @@ public class test3 {
             {7, 8, 9, 10, 11, 12, 13}};
 
     public static void main(String[] args) {
+        String[] names = new String[]{"白田欣雨", "蔡昊天", "蔡卓恒", "陈日坤", "陈小婷", "范天庆", "高文静",
+                "高逸轩", "韩杰茹", "郝迥超", "黄根", "蒋丛稷", "李丹阳", "李家森", "刘傲", "刘博伟", "刘科言",
+                "刘素云", "李万军", "李文莉", "李昕宸", "卢怡如", "孟璐", "隋志远", "孙红彬", "孙雨", "谭博仁"};
+
+        System.out.print("请输入名单：");
+        Scanner scanner = new Scanner(System.in);
+        String input = "";
+        String hadNames = "";
+        System.out.println("");
+        while (!input.contains("..")) {
+            input = scanner.nextLine();
+            hadNames += input;
+        }
+        for (int i = 0; i < names.length; i++) {
+            if (!hadNames.contains(names[i])) {
+                System.out.print(names[i] + "、");
+            }
+        }
+
+
         //quickSort();
         //luhailin();
         //luhailin2(10000);
@@ -80,7 +101,7 @@ public class test3 {
 
         //System.out.println(fillString("0100", 4));
 
-        System.out.println(Integer.parseInt("0100"));
+        //    System.out.println(Integer.parseInt("0100"));
     }
 
     /**
@@ -576,4 +597,24 @@ public class test3 {
             System.out.println("doubleOrigin = " + doubleOrigin + " ;" + " " + " doubleNew  = " + doubleNew + " " + " ;差值 = " + (doubleOrigin - doubleNew));
         }
     }
+
+
+    @Test
+    public void test1() {
+        File file = new File("D:/OneDrive/2020.12CET-6_准考证(刘赛赛).pdf");
+        long length = file.length();
+        String s = formatFileSize("" + length);
+        System.out.println(s);
+    }
+
+    public String formatFileSize(String fileSize) {
+        String[] arr = {"Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
+        float srcsize = Float.valueOf(fileSize);
+        int index = (int) (Math.floor(Math.log(srcsize) / Math.log(1024)));
+        double size = srcsize / Math.pow(1024, index);
+        size = Double.valueOf(new DecimalFormat("#.00").format(size));
+        return size + arr[index];
+    }
+
+
 }
