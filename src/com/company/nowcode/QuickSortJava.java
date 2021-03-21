@@ -18,9 +18,51 @@ public class QuickSortJava {
         int n = 5, k = 3;
         //int[] kth = findKth(a, 0, a.length - 1);
         QuickSort(a, 0, a.length - 1);
-        System.out.println(Arrays.toString(a));//2
+        System.out.println("快排一：" + Arrays.toString(a));//2
+
+        QuickSort2(a, 0, a.length - 1);
+        System.out.println("快排二：" + Arrays.toString(a));//2
+
     }
-    private static int count;
+
+
+    /**
+     * 从小到大的快排
+     *
+     * @param arr   待排序数组
+     * @param left  左侧节点
+     * @param right 右侧节点
+     */
+    private void QuickSort2(int[] arr, int left, int right) {
+        if(left >= right)return;
+
+        int  pivotVal = arr[left];
+        int l = left, r = right;
+
+        while (l < r) {
+            while (l < r && arr[l] <= pivotVal) {
+                l++;
+            }
+            //TODO:null
+            while (l < r && arr[r] >= pivotVal) {
+                r--;
+            }
+            //TODO:交换元素
+            if (l < r) {
+                int temp = arr[l];
+                arr[l] = arr[r];
+                arr[r] = temp;
+            }
+        }
+        //TODO:
+        arr[left] = arr[l];
+        arr[l] = pivotVal;
+        //迭代的时候一定要注意传入的区间；
+        QuickSort(arr, left, l);
+        QuickSort(arr, l+1, right);
+    }
+
+
     /**
      * 递增 的快速排序
      *
@@ -56,7 +98,6 @@ public class QuickSortJava {
         }
         num[left] = num[l];
         num[l] = pivot;
-        count++;
         QuickSort(num, left, l - 1);
         QuickSort(num, l + 1, right);
     }

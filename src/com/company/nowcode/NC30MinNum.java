@@ -20,8 +20,8 @@ import java.util.Arrays;
 public class NC30MinNum {
     @Test
     public void test() {
-        int[] arr = new int[]{-1, 2, 3, 4};
-        int i = minNumberdisappered2(arr);
+        int[] arr = new int[]{1, 2, 3, 4};
+        int i = minNumberdisappered3(arr);
         System.out.println(Arrays.toString(arr) + " 中没有出现的最小正整数是：" + i);
     }
     public int minNumberdisappered2(int[] arr) {
@@ -36,6 +36,17 @@ public class NC30MinNum {
         for (int i = 0; i < n; i++) if (arr[i] != i + 1) return i + 1;
         return n + 1;
     }
+
+    public int minNumberdisappered3(int[] arr){
+        int min =  1;
+
+        for(int i = 0 ; i < arr.length ; i ++){
+            if(arr[i]>0 && arr[i] <= min)min = arr[i] + 1;
+        }
+
+        return min;
+    }
+
 
     private int[] swap(int[] arr, int i, int j) {
         int temp = 0;
@@ -53,7 +64,6 @@ public class NC30MinNum {
         if (arr[0] > 1) return 1;
         boolean firstZhengshu = true;
         for (int i = 0; i < arr.length - 1; i++) {
-
             //找到第一个 正数
             if (arr[i] <= 0) continue;
             if (firstZhengshu) {

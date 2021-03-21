@@ -579,4 +579,30 @@ public class Main {
         System.out.println(clazz1 == clazz4);
     }
 
+
+    //对于被static 和final 修饰过的实例常量，实例本身不能再改变了，但对于一些容器类型
+    // （比如，ArrayList、HashMap）的实例变量，不可以改变容器变量本身，但可以修改容器中存放的对象，
+    static final ArrayList list = new ArrayList();
+
+    @Test
+    public void test17() {
+        System.out.println("静态全局成员变量 ArrayList:" + list);
+        list.add(1);
+        list.add(1.1);
+        list.add("String");
+        list.add(new Date());
+        System.out.println("添加数据的静态全局成员变量 ArrayList:" + list);
+
+        list.clear();
+        System.out.println("清空数据的静态全局成员变量 ArrayList:" + list);
+
+    }
+
+    @Test
+    public void test18() {
+
+    }
+
+
+
 }

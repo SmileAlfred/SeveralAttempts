@@ -1,13 +1,11 @@
 package com.company;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.junit.Test;
 
 import java.io.File;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class test3 {
     public static int[][] array = new int[][]{
@@ -616,5 +614,59 @@ public class test3 {
         return size + arr[index];
     }
 
+    ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+
+    @Test
+    public void test2() {
+        ArrayList<Integer> list1 = new ArrayList<>();
+        //[[-2,1,1],[-2,0,2]]
+        list1.add(2);
+        list1.add(1);
+        ArrayList<Integer> list2 = new ArrayList<>();
+        //[[-2,1,1],[-2,0,2]]
+        list2.add(2);
+        list2.add(0);
+        list2.add(2);
+        res.add(list1);
+        res.add(list2);
+
+        res.sort(new Comparator<ArrayList<Integer>>() {
+            @Override
+            public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
+                if (o1.size() != o2.size()) return o1.size() - o2.size();
+
+                for (int i = 0; i < o1.size(); i++) {
+                    if (o1.get(i) == o2.get(i)) continue;
+                    return o1.get(i) - o2.get(i);
+                }
+                return 0;
+            }
+        });
+        System.out.println(res);
+    }
+
+    @Test
+    public void test3() {
+        String name = new String("Liu");
+        System.out.println(name);
+    }
+
+    @Test
+    public void test4() {
+        //相同时间不同算法的复杂度，分别可以计算多少计算量呢？
+        long[] times = new long[]{1L, 60L, 3600L, 86400L, 2592000L, 31104000L, 3110400000L};//1秒，1分，1小时，1天，1个月，1年，1个世纪
+        long time = 1L;
+
+        for (int i = 0; i < times.length; i++) {
+            time = times[i];
+            float f1 = (float) Math.pow(2, time);
+            float f2 = (float) time * time;
+            float f3 = (float) time;
+            float f4 = (float) Math.pow(2, time);
+            System.out.println(f1 + " ; " + f2 + " ; " + f3 + " ; " + f4 + " ; ");
+        }
+
+
+    }
 
 }

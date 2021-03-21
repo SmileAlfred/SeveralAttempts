@@ -7,6 +7,8 @@ import org.junit.Test;
  * @create 2021-03-11 21:55
  * @csdn https://blog.csdn.net/liusaisaiV1
  * @description 进制转换
+ * 注意：如 10 - A；
+ * -4 3 -> -11
  */
 public class NC112JinZhiTransfer {
 
