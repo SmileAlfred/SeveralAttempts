@@ -1,7 +1,9 @@
 package com.company;
 
+import com.sun.istack.internal.Nullable;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.junit.Test;
+import sun.rmi.runtime.Log;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -665,8 +667,61 @@ public class test3 {
             float f4 = (float) Math.pow(2, time);
             System.out.println(f1 + " ; " + f2 + " ; " + f3 + " ; " + f4 + " ; ");
         }
+    }
+
+    @Test
+    public void test5() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("abc");
+        list.add("we");
+        list.add("eer");
+        list.add("ry");
+        list.add("uiy");
+        list.add("ghj");
+        list.add("dfs");
+        list.add("2");
+        System.out.println("删除前 :" + list);
+        //测试 for 删除是否会报错！虽然没有报错，但是不建议！
+        for (int i = 0; i < list.size(); i++) {
+            String str = list.get(i);
+            if ("2".equals(str)) list.remove(str);
+        }
 
 
+        System.out.println("删除后 :" + list);
+    }
+
+    @Test
+    public void testMethod() {
+        List<String> list = new ArrayList<String>();
+        list.add("1");
+        list.add("2");
+        //会报错
+        for (String s : list) {
+            if ("2".equals(s)) {
+                list.remove(s);
+            }
+        }
+    }
+
+    @Test
+    public void test6() {
+        ArrayList<String> list = new ArrayList<>();
+        list.add("abc");
+        list.add("we");
+        list.add("eer");
+        list.add("ry");
+        list.add("uiy");
+        list.add("ghj");
+        list.add("dfs");
+        list.add("2");
+        System.out.println("删除前 :" + list);
+
+        Iterator<String> ite = list.iterator();
+        while (ite.hasNext()) {
+            String str = ite.next();
+            if (str.equals("uiy")) ite.remove();
+        }
     }
 
 }
