@@ -1,5 +1,6 @@
 package com.company;
 
+import javafx.scene.layout.BackgroundRepeat;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -9,6 +10,10 @@ import java.util.Arrays;
  * @create 2021-03-21 11:12
  * @csdn https://blog.csdn.net/liusaisaiV1
  * @description 排序算法汇总
+ * 一、插入排序
+ * 二、堆排序
+ * 三、归并排序
+ * 四、快速排序
  */
 public class Sort {
 
@@ -17,13 +22,16 @@ public class Sort {
 
 
         int[] arr = new int[10];
-
+        //arr = new int[]{7, 2, 4, 7, 9, 8, 5, 9, 5, 8};
+        //System.out.println("排序前：" + Arrays.toString(arr));
+        //quickSort(arr, 0, arr.length - 1);
+        //System.out.println("排序后：" + Arrays.toString(arr));
 
         for (int m = 0; m < 10000; m++) {
             for (int i = 0; i < arr.length; i++) {
                 arr[i] = (int) (Math.random() * 100 + 1);
             }
-            //System.out.print("数组：" + Arrays.toString(arr));
+            System.out.print("排序前：" + Arrays.toString(arr));
             //排序一：插入排序
             //int[] insertionSort = insertionSort(arr);
 
@@ -31,10 +39,14 @@ public class Sort {
             //int[] heapSort = heapSort(arr);
 
             //排序三：归并排序
-            mergeSort(arr, 0, arr.length - 1);
-            //System.out.println("排序后：" + Arrays.toString(heapSort));
+            //mergeSort(arr, 0, arr.length - 1);
 
-            System.out.println(Arrays.toString(arr));
+            //排序四：快速排序
+            quickSort(arr, 0, arr.length - 1);
+
+
+            System.out.println("\t排序后：" + Arrays.toString(arr));
+
             for (int i = 0; i < arr.length - 1; i++) {
                 if (arr[i] > arr[i + 1]) {
                     System.out.println("\nflase");
@@ -46,6 +58,32 @@ public class Sort {
             }
         }
 
+    }
+
+    /**
+     * 排序四：快速排序
+     * 1. 找到 pivot,把小于pivot值放在左侧，大于的值放在右侧，继续递归
+     */
+    public void quickSort(int[] arr, int left, int right) {
+        if (left >= right) return;
+        int pivotVal = arr[left], l = left, r = right;
+        while (l < r) {
+            while (l < r && arr[r] >= pivotVal) {
+                r--;
+            }
+
+            while (l < r && arr[l] <= pivotVal) {
+                l++;
+            }
+            int temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+        }
+        arr[left] = arr[l];
+        arr[l] = pivotVal;
+
+        quickSort(arr, left, l-1);
+        quickSort(arr, l + 1, right);
     }
 
 
@@ -91,7 +129,7 @@ public class Sort {
         //    arr[left + p] = temp[p];
         //}
         //4. 将 temp 覆盖到原数组
-        System.arraycopy(temp,0,arr,left,temp.length);
+        System.arraycopy(temp, 0, arr, left, temp.length);
     }
 
     /**

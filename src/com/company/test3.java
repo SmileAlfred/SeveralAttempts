@@ -1,15 +1,23 @@
 package com.company;
 
+import com.sun.deploy.net.MessageHeader;
 import com.sun.istack.internal.Nullable;
+import com.sun.prism.shader.Solid_LinearGradient_PAD_Loader;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import org.hamcrest.core.Is;
 import org.junit.Test;
 import sun.rmi.runtime.Log;
 
-import java.io.File;
+import javax.xml.transform.Source;
+import java.io.*;
 import java.text.DecimalFormat;
 import java.util.*;
 
+import static com.company.WheelTest.recieveSize;
+
 public class test3 {
+
+
     public static int[][] array = new int[][]{
             {1, 2, 3, 4, 5, 6, 7},
             {2, 3, 4, 5, 6, 7, 8},
@@ -723,5 +731,313 @@ public class test3 {
             if (str.equals("uiy")) ite.remove();
         }
     }
+
+    @Test
+    public void Test7() {
+
+        int[] arr1 = new int[]{0, 2, 4, 7};//0,1,2,3,4,5,6,7
+        int[] arr2 = new int[]{1, 3, 5, 6};
+        double res = findMid(arr1, arr2);
+        System.out.println(res);
+
+        Integer a = new Integer(127);
+        Integer b = new Integer(127);
+        System.out.println(a == b);
+    }
+
+    public double findMid(int[] arr1, int[] arr2) {
+        int a1Length = arr1.length;
+        int a2Length = arr2.length;
+        boolean isOushu = (a1Length + a2Length) % 2 == 0;
+        int index = (a1Length + a2Length) / 2;
+        int midLeft = -1;
+        int a1Index = 0, a2Index = 0;
+        for (int i = 0; i < index + 1; i++) {
+            int temp = arr1[a1Index] < arr2[a2Index] ? arr1[a1Index++] : arr2[a2Index++];
+            if (!isOushu && i == index) {
+                return temp;
+            }
+            if (isOushu && i == index - 1) {//
+                midLeft = temp;
+            }
+            if (isOushu && i == index) {
+                return (midLeft + temp) / 2.0;
+            }
+        }
+
+        return -1;
+    }
+
+    @Test
+    public void test8() {
+        System.out.println((double) 1 / 2);
+        int num = 123;
+        while (num > 0) {
+            System.out.println(num % 10);
+            num /= 10;
+        }
+        System.out.println();
+
+        System.out.println((-4 >>> 1) + " ; " + Integer.MAX_VALUE);
+        System.out.println(-2 * 3 > 0 ? true : false);
+    }
+
+
+    @Test
+    public void test9() {
+        //方式二：手动实现 十进制转 16 进制
+        int i1 = 60;
+        // int i2 = i1 & 15;//原理是将60二进制的后四位写成一位；故与1111（15求与；
+        // String j = (i2 > 9) ? (char) (i2 - 10 + 'A') + "" : i2 + "";//12-10=2 2+‘A’→char→C
+        // int temp = i1 >>> 4;//将源数据右移4位，再提取出来；
+        // i2 = temp & 15;
+        // String k = (i2 > 9) ? (char) (i2 - 10 + 'A') + "" : i2 + "";//10→A;		11→B;		12→C
+        // System.out.println(k + "" + j);
+
+        String item = "";
+        String res = "";
+        int right = 0;
+        while (i1 > 0) {
+            //原理是:转成 16 进制，将 60二进制的【后四位】写成一位；故与1111（15求与；
+            //若转成 8 进制，则与 7 求与
+            right = i1 & 1;
+            item = (right > 9) ? (char) (right - 10 + 'A') + "" : right + "";//12-10=2 2+‘A’→char→C
+            System.out.println(item);
+            res = item + res;
+            //同时，转为 16 进制，右移 4 位，转为 8 进制，右移 3 位
+            i1 = i1 >>> 1;
+        }
+        System.out.println(res);
+
+    }
+
+    class A {
+        public int size;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            A a = (A) o;
+            return size == a.size;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(size);
+        }
+    }
+
+    @Test
+    public void test10() {
+        int[] arr = new int[]{1, 0, 10, 3, 6};//9
+        int min = arr[0];
+        int sum = 0;
+        for (int i = 1; i < arr.length; i++) {
+            sum = Math.max(sum, 0);
+        }
+
+
+    }
+
+    @Test
+    public void test11() {
+        String[] queries = new String[]{"FooBar", "FooBarTest", "FootBall", "FrameBuffer", "ForceFeedBack"};
+        String pattern = "FB";
+        boolean[] res = camelMatch(queries, pattern);
+        System.out.println(Arrays.toString(res));
+    }
+
+    public boolean[] camelMatch(String[] queries, String pattern) {
+        // write code here
+        boolean[] res = new boolean[queries.length];
+        char[] patterns = pattern.toCharArray();
+        int index = 0;
+
+        for (int i = 0; i < queries.length; i++) {
+            res[i] = true;
+            for (int j = 0; j < queries[i].length(); j++) {
+                if (index < patterns.length && queries[i].charAt(j) < 97) {
+                    if (queries[i].charAt(j) == patterns[index]) {
+                        index++;
+                    } else if (index > 0) {
+                        res[i] = false;
+                        break;
+                    }
+                }
+
+            }
+        }
+        return res;
+    }
+
+    @Test
+    public void test12() {
+        try {
+            String savePath = "C:/Users/我是刘优秀/Desktop/145.txt";
+            File saveFile = new File(savePath);
+            FileInputStream is = new FileInputStream(saveFile);
+            int length = is.available();
+            System.out.println("length =  " + length);
+            byte[] buffer = new byte[length];
+            int hasRead;
+            recieveSize = length / 4;
+            int k = 0;
+            int[] b = new int[recieveSize];
+
+            while ((hasRead = is.read(buffer)) != -1) {
+                for (int i = 3; i < buffer.length; i++) {
+                    if ((buffer[i] & 0xf0) == (buffer[i - 1] & 0xf0)) {
+                        if ((buffer[i] & 0xf0) == (buffer[i - 2] & 0xf0)) {
+                            if ((buffer[i] & 0xf0) == (buffer[i - 3] & 0xf0)) {
+                                b[k] = b[k] + (buffer[i] & 0x0f) * 256 * 16;
+                            } else {
+                                b[k] = b[k] + (buffer[i] & 0x0f) * 256;
+                            }
+                        } else {
+                            b[k] = b[k] + (buffer[i] & 0x0f) * 16;
+                        }
+                    } else {
+                        //磁栅位置和传感器数据的对齐：光栅尺位置（um） =(3.0371  * i + 352.93)/1000;
+                        System.out.print((3.0371 * b[k] + 352.93) / 1000 + "\t");
+                        k++;
+                        b[k] = b[k] + (buffer[i] & 0x0f);
+                    }
+                }
+            }
+
+
+        } catch (Exception e) {
+            System.out.println("报错：" + e.getMessage());
+        }
+    }
+
+
+    /**
+     * 请问在 1 到 2020 中，有多少个数与 2020 互质，即有多少个数与 2020
+     * 的最大公约数为 1。（两个质数的判定）
+     */
+    @Test
+    public void test13() {
+        int count = 0;
+        for (int i = 1; i <= 2020; i++) {
+            if (getMaxNum(i, 2020) == 1) {
+                count++;
+                //System.out.println("i = " + i);
+            }
+        }
+        System.out.println("count = " + count);
+    }
+
+    /**
+     * 这个函数是判断两个数是否为质数的函数；
+     * 这个方法绝了……
+     */
+    public int getMaxNum(int a, int b) {
+        if (b == 0) return a;
+        return getMaxNum(b, a % b);
+    }
+
+
+    @Test
+    public void test14() {
+        int v = 13, p = 21;
+        int pierce = Pierce(v, p);
+        System.out.println(" v = " + v + " ; p = " + p + " ; res = " + pierce);
+    }
+
+    public int Pierce(int v, int p) {
+        List<Integer> res = new ArrayList<>();
+        res.add(v);
+        while (true) {
+            int temp = p % res.get(res.size() - 1);
+            if (temp == 0) break;
+            res.add(temp);
+        }
+        System.out.println(res);
+        return res.size();
+    }
+
+    /**
+     * 在Excel 中，第1 列到第26 列的列名依次为A 到Z，从第27 列开
+     * 始，列名有两个字母组成，第27 列到第702 列的列名依次为AA 到ZZ。
+     * 之后的列再用3 个字母、4 个字母表示。
+     * 请问，第2021 列的列名是什么？
+     * 这不就是 26 进制嘛？然后 123 换成 ABC
+     */
+    @Test
+    public void test15() {
+        //思路：除以 26 直到 == 0；过程中对其取模，取模的结果 res - 1 + ‘A’
+        int num = 2021;
+        for (int i = 1; i < num; i++) {
+            //if (i % 26 != 0) continue;
+            String res = test(i);
+            System.out.println(i + " 行的符号是：\t" + res);
+        }
+    }
+
+    private String test(int i) {
+        StringBuilder stringBuilder = new StringBuilder();
+        List<Integer> list = new ArrayList<>();
+        int shang = i / 26, yushu = i % 26;
+        list.add(yushu);
+        while (shang > 26) {
+            yushu = shang % 26;
+            list.add(yushu);
+            shang /= 26;
+        }
+        if (0 != shang) list.add(shang);
+        System.out.print(list + "\t");
+        for (int j = 0; j < list.size(); j++) {
+            if (0 > list.get(j)) {
+                break;
+            } else if (0 == list.get(j)) {
+                if (j + 1 == list.size()) break;
+                stringBuilder.append("Z");
+                list.set(j + 1, (list.get(j + 1) - 1));
+
+            } else stringBuilder.append("" + (char) (list.get(j) - 1 + 'A'));
+        }
+        stringBuilder = stringBuilder.reverse();
+        return stringBuilder.toString();
+    }
+
+    public String test1(int num) {
+        StringBuilder sb = new StringBuilder();
+        int shang = num / 26, yushu = num % 26;
+        while (shang > 0) {
+            if (shang == 1 && yushu == 0) {
+                sb.append("Z", 0, 1);
+                break;
+            }
+
+
+            if (shang < 26 && 0 != yushu) sb.append("" + (char) (shang - 1 + 'A'), 0, 1);
+            if (shang < 26 && 0 == yushu) sb.append("" + (char) (shang - 2 + 'A'), 0, 1);
+            else {
+                yushu = shang % 26;
+                if (0 != yushu) sb.append("" + (char) (yushu - 1 + 'A'), 0, 1);
+            }
+            if (0 == yushu) sb.append("Z", 0, 1);
+
+            shang /= 26;
+        }
+
+        if (shang == 0 && 0 != yushu) sb.append("" + (char) (yushu - 1 + 'A'), 0, 1);
+
+        return sb.toString();
+    }
+
+    @Test
+    public void test16() {
+        SingleInstance instance1 = SingleInstance.getInstance();
+        System.out.println(instance1);
+        SingleInstance instance2 = SingleInstance.getInstance();
+        System.out.println(instance2);
+        SingleInstance instance3 = SingleInstance.getInstance();
+        System.out.println(instance3);
+
+    }
+
 
 }

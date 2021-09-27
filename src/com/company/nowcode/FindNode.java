@@ -10,6 +10,7 @@ import java.util.Queue;
  * 对于一个给定的链表，返回环的入口节点，如果没有环，返回null
  * 拓展：
  * 能给出不利用额外空间的解法么？
+ * 难点！从头到第一次相遇的距离 == 快指针从相遇位置转一圈(此时跟慢指针节奏一样)到相遇位置
  */
 public class FindNode {
     public ListNode detectCycle(ListNode head) {

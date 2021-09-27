@@ -56,6 +56,7 @@ public class FindPath {
             dfs(root.right, sum, cnt);
         }
         temp.remove(temp.size() - 1);
+        //这里 cnt 并没有减去最后一次添加进来的值！因为其实并没有加进来……。
     }
 
 
