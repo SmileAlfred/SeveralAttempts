@@ -27,7 +27,7 @@ public class FindMaxIn2DArr {
         dArr = get2DArr(count);
         int i = (int) (Math.random() * count);
         int j = (int) (Math.random() * count);
-        System.out.println("起始点为：" + "i = " + i + " ; j = " + j + " ；值 = " + dArr[i][j]);
+        System.out.println("起始:["  + i + "," + j + "] = " + dArr[i][j]);
         //int[] res = findMax(i, j, count);
         findMaxPower(0, i, j, step);
         System.out.println("粗调:[" + x1 + "，" + y1 + "] = " + maxV);
